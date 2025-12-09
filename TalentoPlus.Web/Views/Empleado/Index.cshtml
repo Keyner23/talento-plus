@@ -1,0 +1,161 @@
+@model IEnumerable<TalentoPlus.Core.Entities.Empleado>
+
+@{
+    ViewData["Title"] = "Lista de Empleados";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">
+            <i class="bi bi-people-fill me-2"></i>Empleados
+        </h1>
+        <div>
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-1"></i>Nuevo Empleado
+            </a>
+            <a asp-action="ImportExcel" class="btn btn-success">
+                <i class="bi bi-file-earmark-excel me-1"></i>Importar Excel
+            </a>
+        </div>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <!-- Filtros y búsqueda -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <input type="text" id="searchInput" class="form-control" placeholder="🔍 Buscar empleado...">
+                    </div>
+                    <div class="col-md-3">
+                        <select id="departamentoFilter" class="form-select">
+                            <option value="">Todos los departamentos</option>
+                            @foreach (var dept in Model.Select(e => e.Departamento).Distinct().OrderBy(d => d))
+                            {
+                                <option value="@dept">@dept</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="estadoFilter" class="form-select">
+                            <option value="">Todos los estados</option>
+                            @foreach (var estado in Model.Select(e => e.Estado).Distinct().OrderBy(e => e))
+                            {
+                                <option value="@estado">@estado</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-2 text-end">
+                        <span class="badge bg-info fs-6">Total: @Model.Count()</span>
+                    </div>
+                </div>
+
+                <!-- Tabla responsive -->
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover align-middle" id="empleadosTable">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Documento</th>
+                                <th>Nombre Completo</th>
+                                <th>Email</th>
+                                <th>Cargo</th>
+                                <th>Departamento</th>
+                                <th>Estado</th>
+                                <th>Salario</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var empleado in Model)
+                            {
+                                <tr>
+                                    <td><strong>@empleado.Documento</strong></td>
+                                    <td>
+                                        <strong>@empleado.Nombre @empleado.Apellidos</strong><br>
+                                        <small class="text-muted">@empleado.Telefono</small>
+                                    </td>
+                                    <td>
+                                        <a href="mailto:@empleado.Email" class="text-decoration-none">
+                                            @empleado.Email
+                                        </a>
+                                    </td>
+                                    <td><span class="badge bg-secondary">@empleado.Cargo</span></td>
+                                    <td>@empleado.Departamento</td>
+                                    <td>
+                                        @{
+                                            var estadoClass = empleado.Estado?.ToLower() switch
+                                            {
+                                                "activo" => "success",
+                                                "inactivo" => "danger",
+                                                "vacaciones" => "warning",
+                                                _ => "secondary"
+                                            };
+                                        }
+                                        <span class="badge bg-@estadoClass">@empleado.Estado</span>
+                                    </td>
+                                    <td><strong>$@(empleado.Salario ?? "N/A")</strong></td>
+                                    <td class="text-center">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            
+                                            @* <a asp-action="GeneratePDF" asp-route-id="@empleado.Id"  *@
+                                            @*    class="btn btn-danger" title="Generar PDF"> *@
+                                            @*     <i class="bi bi-file-pdf"></i> *@
+                                            @* </a> *@
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center py-5">
+            <h1><i class="bi bi-info-circle"></i></h1>
+            <h4>No hay empleados registrados</h4>
+            <p class="mb-3">Comienza agregando empleados o importa un archivo Excel</p>
+            <a asp-action="Create" class="btn btn-primary me-2">
+                <i class="bi bi-plus-circle me-1"></i>Agregar Empleado
+            </a>
+            <a asp-action="ImportExcel" class="btn btn-success">
+                <i class="bi bi-file-earmark-excel me-1"></i>Importar Excel
+            </a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // Búsqueda en tiempo real
+        document.getElementById('searchInput').addEventListener('keyup', filterTable);
+        document.getElementById('departamentoFilter').addEventListener('change', filterTable);
+        document.getElementById('estadoFilter').addEventListener('change', filterTable);
+
+        function filterTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const departamento = document.getElementById('departamentoFilter').value.toLowerCase();
+            const estado = document.getElementById('estadoFilter').value.toLowerCase();
+            
+            const rows = document.querySelectorAll('#empleadosTable tbody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                const rowDept = row.cells[4].textContent.toLowerCase();
+                const rowEstado = row.cells[5].textContent.toLowerCase();
+                
+                const matchesSearch = text.includes(searchTerm);
+                const matchesDept = !departamento || rowDept.includes(departamento);
+                const matchesEstado = !estado || rowEstado.includes(estado);
+                
+                row.style.display = matchesSearch && matchesDept && matchesEstado ? '' : 'none';
+            });
+        }
+    </script>
+}
+
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
