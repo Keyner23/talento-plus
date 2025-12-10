@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "40zhDUf58qk=",
+  "success": true,
+  "projectFilePath": "/home/Coder/RiderProjects/talento-plus/TalentoPlus.Shared/TalentoPlus.Shared.csproj",
+  "expectedPackageFiles": [
+    "/home/Coder/.nuget/packages/microsoft.netcore.app.ref/8.0.20/microsoft.netcore.app.ref.8.0.20.nupkg.sha512",
+    "/home/Coder/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.20/microsoft.aspnetcore.app.ref.8.0.20.nupkg.sha512"
+  ],
+  "logs": []
+}

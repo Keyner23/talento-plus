@@ -1,0 +1,13 @@
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/bin/Debug/net9.0/TalentoPlus.Core.deps.json
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/bin/Debug/net9.0/TalentoPlus.Core.dll
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/bin/Debug/net9.0/TalentoPlus.Core.pdb
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/obj/Debug/net9.0/TalentoPlus.Core.csproj.AssemblyReference.cache
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/obj/Debug/net9.0/TalentoPlus.Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/obj/Debug/net9.0/TalentoPlus.Core.AssemblyInfoInputs.cache
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/obj/Debug/net9.0/TalentoPlus.Core.AssemblyInfo.cs
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/obj/Debug/net9.0/TalentoPlus.Core.csproj.CoreCompileInputs.cache
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/obj/Debug/net9.0/TalentoPlus.Core.sourcelink.json
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/obj/Debug/net9.0/TalentoPlus.Core.dll
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/obj/Debug/net9.0/refint/TalentoPlus.Core.dll
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/obj/Debug/net9.0/TalentoPlus.Core.pdb
+/home/Coder/RiderProjects/talento-plus/TalentoPlus.Core/obj/Debug/net9.0/ref/TalentoPlus.Core.dll
